@@ -6,7 +6,7 @@ import java.util.Scanner;
 class Function implements Serializable {
     double x, y;
 
-    double getY() {
+    double ccc() {
         y = x - Math.sin(x);
         return y;
     }
@@ -14,51 +14,51 @@ class Function implements Serializable {
 
 public class Main {
     public static void main(String[] args) {
-        String txt;
+        String ttt;
         Scanner in = new Scanner(System.in);
-        Function func = new Function(); //объект класса функтион
-        System.out.print("Введите значение х: ");
+        Function fff = new Function();
+        System.out.print("Число х: ");
         while (true) {
-            txt = in.nextLine();
+            ttt = in.nextLine();
             try {
-                double x = Double.parseDouble(txt);
-                func.x = x;//x присваиваем значение строки double x = Double.parseDouble(txt);
-                func.getY();
-                System.out.println("Вы можете ввести команду: сохранить, загрузить, изменить, проверить, остановить");
+                double x = Double.parseDouble(ttt);
+                fff.x = x;
+                fff.ccc();
+                System.out.println("Введите команду: сохранить, показать результаты, изменить значение, загрузить сохранённые данные, завершить");
             } catch (Exception IOe) {
-                if (txt.equalsIgnoreCase("сохранить")) {
+                if (ttt.equalsIgnoreCase("сохранить")) {
                     try (ObjectOutputStream wr = new ObjectOutputStream(new FileOutputStream("object.txt"))) {
-                        wr.writeObject(func);
-                        System.out.println("Данные сохранены в файл");
+                        wr.writeObject(fff);
+                        System.out.println("Сохранено");
                     } catch (IOException ex) {
                         ex.getMessage();
                     }
                 }
-                else if (txt.equalsIgnoreCase("загрузить")) {
+                else if (ttt.equalsIgnoreCase("показать результаты")) {
+                    System.out.printf("Результаты \nx: %s\ny: %s\n",fff.x, fff.y);
+                }
+                else if (ttt.equalsIgnoreCase("изменить значение")) {
+                    System.out.printf("Число х: ");
+                    ttt = in.nextLine();
+                    double x = Double.parseDouble(ttt);
+                    fff.x = x;
+                    fff.ccc();
+                }
+                else if (ttt.equalsIgnoreCase("загрузить сохранённые данные")) {
                     try (ObjectInputStream rd = new ObjectInputStream(new FileInputStream("object.txt"))) {
-                        func = (Function) rd.readObject();
-                        System.out.println("Загрузка успешна");
+                        fff = (Function) rd.readObject();
+                        System.out.println("Данные восстановленны");
                     } catch (Exception ex) {
                         ex.getMessage();
                     }
                 }
-                else if (txt.equalsIgnoreCase("изменить")) {
-                    System.out.printf("Введите значение х: ");
-                    txt = in.nextLine();
-                    double x = Double.parseDouble(txt);
-                    func.x = x;
-                    func.getY();
-                }
-                else if (txt.equalsIgnoreCase("проверить")) {
-                    System.out.printf("x: %s\ny: %s\n",func.x, func.y);
-                }
-                else if (txt.equalsIgnoreCase("остановить")){
+                else if (ttt.equalsIgnoreCase("завершить")){
                     break;
                 }
                 else {
-                    System.out.println("Такой команды нет");
+                    System.out.println("Нераспознанная команда");
                 }
-                System.out.println("Вы можете ввести команду: сохранить, загрузить, изменить, проверить, остановить");
+                System.out.println("Введите команду: сохранить, показать результаты, изменить значение, загрузить сохранённые данные, завершить");
             }
         }
     }
