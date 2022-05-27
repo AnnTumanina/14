@@ -39,10 +39,15 @@ public class Main {
                 }
                 else if (ttt.equalsIgnoreCase("изменить значение")) {
                     System.out.printf("Число х: ");
-                    ttt = in.nextLine();
-                    double x = Double.parseDouble(ttt);
-                    fff.x = x;
-                    fff.ccc();
+                    try {
+                        ttt = in.nextLine();
+                        double x = Double.parseDouble(ttt);
+                        fff.x = x;
+                        fff.ccc();
+                    }
+                    catch (Exception IOee) {
+                        System.out.println("Нераспознанная команда");
+                    }
                 }
                 else if (ttt.equalsIgnoreCase("загрузить сохранённые данные")) {
                     try (ObjectInputStream rd = new ObjectInputStream(new FileInputStream("object.txt"))) {
